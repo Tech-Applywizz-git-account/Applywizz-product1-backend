@@ -13,6 +13,19 @@ app.use('/paypal', paypalRoutes);
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Backend listening on ${PORT}`));
 
+// Allow only your frontend origin
+app.use(cors({
+    origin: 'https://applywizz-product1-eh83.vercel.app',
+    methods: ['GET', 'POST', 'OPTIONS'], // include the methods you use
+    credentials: true // if you send cookies or auth headers
+}));
+
+// Your routes
+app.use('/paypal', paypalRoutes);
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Server running...');
+});
 
 // Allow your React frontend to access the API
 // app.use(cors({
