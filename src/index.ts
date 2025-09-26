@@ -7,6 +7,9 @@ dotenv.config();
 
 const app = express();
 
+app.use(cors());
+
+app.use(express.json());
 // Note: we use express.raw on webhook route specifically in routes/paypal
 app.use('/paypal', paypalRoutes);
 
@@ -23,13 +26,6 @@ app.use(cors({
 // Your routes
 app.use('/paypal', paypalRoutes);
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server running...');
-});
-
-app.use(cors());
-
-app.use(express.json());
 
 app.options('/*', cors());
 
