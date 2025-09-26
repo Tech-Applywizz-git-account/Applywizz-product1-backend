@@ -27,6 +27,10 @@ app.listen(process.env.PORT || 3000, () => {
     console.log('Server running...');
 });
 
+app.use(cors());
+
+app.use(express.json());
+
 // Allow your React frontend to access the API
 // app.use(cors({
 //   origin: 'http://localhost:5173', // Allow requests only from this origin (Vite's dev server)
