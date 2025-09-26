@@ -31,7 +31,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.options('*', cors());
+app.options('/*', cors());
 
 // Allow your React frontend to access the API
 // app.use(cors({
