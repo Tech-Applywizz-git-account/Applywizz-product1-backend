@@ -16,9 +16,11 @@ router.post('/create-order', express.json(), async (req, res) => {
     const order = await createOrder(token, amount);
     // store mapping order.id -> email (optional table 'payments_temp')
     await supabase.from('payments_temp').insert([{ order_id: order.id, email: userEmail, amount }]);
+    await supabase.from('profiles').insert([{ email: userEmail, isPaid: false }]);
     res.json(order);
+    console.log('Order created with ID:', order);
   } catch (err: any) {
-    console.error(err);
+    console.error('Create order error:', err);
     res.status(500).json({ error: err.message });
   }
 });
