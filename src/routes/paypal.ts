@@ -26,17 +26,17 @@ router.post('/create-order', express.json(), async (req, res) => {
 });
 
 // capture-order (optional)
-// router.post('/capture-order', express.json(), async (req, res) => {
-//   try {
-//     const { orderId } = req.body;
-//     const token = await getAccessToken();
-//     const capture = await captureOrder(token, orderId);
-//     res.json(capture);
-//   } catch (err: any) {
-//     console.error(err);
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+router.post('/capture-order', express.json(), async (req, res) => {
+  try {
+    const { orderId } = req.body;
+    const token = await getAccessToken();
+    const capture = await captureOrder(token, orderId);
+    res.json(capture);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // webhook - note: PayPal expects raw body for signature verification in production.
 // For local sandbox demo we parse body json, but production must verify signature using PayPal API.
