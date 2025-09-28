@@ -23,7 +23,7 @@ app.use(cors({
     credentials: true // if you send cookies or auth headers
 }));
 
-// app.options('/*', cors());
+app.options('/*', cors());
 
 // Allow your React frontend to access the API
 // app.use(cors({
