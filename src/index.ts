@@ -34,4 +34,4 @@ app.use(cors({
 }));
 
 // Explicitly handle OPTIONS preflight requests
-app.options('*', cors());
+// app.options('*', cors());
