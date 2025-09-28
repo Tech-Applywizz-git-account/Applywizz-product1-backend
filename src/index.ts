@@ -17,21 +17,21 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Backend listening on ${PORT}`));
 
 // Allow only your frontend origin
-app.use(cors({
-    origin: 'https://applywizz-product1-eh83.vercel.app',
-    methods: ['GET', 'POST', 'OPTIONS'], // include the methods you use
-    credentials: true // if you send cookies or auth headers
-}));
-
-app.options('/*', cors());
-
-// Allow your React frontend to access the API
 // app.use(cors({
-//   origin: 'http://localhost:5173', // Allow requests only from this origin (Vite's dev server)
-//   methods: ['GET', 'POST', 'OPTIONS'], // Allow specific methods (GET, POST, OPTIONS)
-//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allow specific headers
-//   credentials: true, // Allow cookies or authorization headers to be sent
+//     origin: 'https://applywizz-product1-eh83.vercel.app',
+//     methods: ['GET', 'POST', 'OPTIONS'], // include the methods you use
+//     credentials: true // if you send cookies or auth headers
 // }));
 
+// app.options('/*', cors());
+
+// Allow your React frontend to access the API
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests only from this origin (Vite's dev server)
+  methods: ['GET', 'POST', 'OPTIONS'], // Allow specific methods (GET, POST, OPTIONS)
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allow specific headers
+  credentials: true, // Allow cookies or authorization headers to be sent
+}));
+
 // Explicitly handle OPTIONS preflight requests
-// app.options('*', cors());
+app.options('*', cors());
