@@ -56,7 +56,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         // update your profiles table or a users table
         const { error } = await supabase
           .from('profiles') // adapt to your table name
-          .update({ isPaid: true })
+          .upsert({email:payerEmail, isPaid: true })
           .eq('email', payerEmail);
         if (error) console.error('Supabase update error', error);
       }
