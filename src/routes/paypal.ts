@@ -16,7 +16,6 @@ router.post('/create-order', express.json(), async (req, res) => {
     const order = await createOrder(token, amount);
     // store mapping order.id -> email (optional table 'payments_temp')
     await supabase.from('payments_temp').insert([{ order_id: order.id, email: userEmail, amount }]);
-    await supabase.from('profiles').insert([{ email: userEmail, isPaid: false }]);
     res.json(order);
     console.log('Order created with ID:', order);
   } catch (err: any) {
@@ -56,8 +55,7 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         // update your profiles table or a users table
         const { error } = await supabase
           .from('profiles') // adapt to your table name
-          .upsert({email:payerEmail, isPaid: true })
-          .eq('email', payerEmail);
+          .insert([{email:payerEmail, isPaid: true }])
         if (error) console.error('Supabase update error', error);
       }
     }
