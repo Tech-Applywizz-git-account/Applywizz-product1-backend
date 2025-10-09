@@ -10,6 +10,7 @@ const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SE
 
 // create-order
 router.post('/create-order', express.json(), async (req, res) => {
+  console.log('Create order request body1:', req.body);
   try {
     const { amount = '10.00', userEmail } = req.body;
     const token = await getAccessToken();
@@ -26,6 +27,7 @@ router.post('/create-order', express.json(), async (req, res) => {
 
 // capture-order (optional)
 router.post('/capture-order', express.json(), async (req, res) => {
+  console.log('Capture order request body2:', req.body);
   try {
     const { orderId } = req.body;
     const token = await getAccessToken();
@@ -40,6 +42,7 @@ router.post('/capture-order', express.json(), async (req, res) => {
 // webhook - note: PayPal expects raw body for signature verification in production.
 // For local sandbox demo we parse body json, but production must verify signature using PayPal API.
 router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+  console.log('Webhook received');
   try {
     const bodyText = req.body.toString();
     const body = JSON.parse(bodyText);
